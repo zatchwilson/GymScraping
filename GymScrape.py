@@ -38,6 +38,7 @@ time_s = coreText[s_length-8:s_length]
 date_s = coreText[s_length-19:s_length-9]
 gym_count = coreText[colonIndex+2:s_length-28]
 date_time = coreText[s_length-19: s_length]
+weekday = datetime.now().isoweekday()
 
 
 con = sqlite3.connect("C:/sqlite/testDB.db")
@@ -45,11 +46,11 @@ con = sqlite3.connect("C:/sqlite/testDB.db")
 cur = con.cursor()
 
 data = (
-    {"date_time": date_time, "date": date_s, "time": time_s, "capacity": gym_count}
+    {"date_time": date_time, "date": date_s, "time": time_s, "capacity": gym_count, "weekday": weekday}
 )
 
 try:
-    cur.execute("INSERT INTO gym_capacity VALUES(:date_time, :date, :time, :capacity)", data)
+    cur.execute("INSERT INTO gym_capacity VALUES(:date_time, :date, :time, :capacity, :weekday)", data)
     con.commit()
 except:
     logging.warning("Entry already exists - " + date_time + ". Logged at " + datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
