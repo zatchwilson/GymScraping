@@ -1,3 +1,5 @@
 /app.log
 /gym_scrape.bat
 GymScrape.spec
+build/
+dist/
